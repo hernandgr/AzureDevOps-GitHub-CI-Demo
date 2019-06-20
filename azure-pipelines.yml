@@ -24,3 +24,17 @@ steps:
   inputs:
     command: 'test'
     projects: '**/**/**Test.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: "Publish"
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Visual Studio Ultimate with MSDN(677e2aa8-ccc9-4b61-9c64-aa6a1ab77e2e)'
+    appType: 'webApp'
+    WebAppName: 'mdedevopsdemo'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
